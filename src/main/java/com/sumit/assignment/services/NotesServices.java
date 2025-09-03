@@ -44,7 +44,8 @@ public class NotesServices {
         return saved;
     }
 
-    public Note updateNote(NoteRequestDto note, Long noteId, Authentication authentication) {
+    public Note updateNote(NoteRequestDto note, String noteId, Authentication authentication) {
+
 
         Note existingNote = getNoteById(noteId);
         if(existingNote != null) {
@@ -55,11 +56,11 @@ public class NotesServices {
         return null;
     }
 
-    public void deleteNote(Long noteId) {
+    public void deleteNote(String noteId) {
         noteRepository.deleteById(noteId);
     }
 
-    public Note getNoteById(Long noteId) {
+    public Note getNoteById(String noteId) {
         return noteRepository.findById(noteId).orElse(null);
     }
 

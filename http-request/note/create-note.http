@@ -1,10 +1,11 @@
 ### POST request  to create new note
 POST http://localhost:8080/api/v1/notes/create
 Content-Type: application/json
-Accept: application/json
-Authorization: "Bearer" +"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbm9ueW1vdXNVc2VyIiwiaWF0IjoxNzU2MjMwOTc4LCJleHAiOjE3NTYyMzQ1Nzh9.7CyspC4UpUPzW9kNMi5DxNYmxTOrMrxeJ4Jqs7WlL1PRVbRaCcJyQ-jbBgLjp6B6RhlAbq6hm9jZlCaglyNB-g"
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJEb2UxQGdtYWlsLmNvbSIsImlhdCI6MTc1NjkwODUxNSwiZXhwIjoxNzU2OTEyMTE1fQ.K7IWMcKvLHITzTv26tZGegaIQ-pFIhn61Wrbl46L9_1dwxfkAEgmsyUYLdOJIhWMt88V4PDJUaAIg3JJm2CfZQ
 
 {
   "title": "First Note",
   "content": "This is my first note"
 }
+
+###

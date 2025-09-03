@@ -1,6 +1,7 @@
 package com.sumit.assignment.security;
 
 
+import com.sumit.assignment.config.AppConfig;
 import com.sumit.assignment.jwt.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -23,8 +24,11 @@ public class SecurityConfig {
 
     private AuthenticationProvider authenticationProvider;
 
+    private AppConfig appConfig;
+
     @Autowired
-    public SecurityConfig(JwtFilter jwtFilter, AuthenticationProvider authenticationProvider) {
+    public SecurityConfig(JwtFilter jwtFilter, AuthenticationProvider authenticationProvider, AppConfig appConfig) {
+        this.appConfig = appConfig;
         this.jwtFilter = jwtFilter;
         this.authenticationProvider = authenticationProvider;
     }
@@ -32,10 +36,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http
+                .cors(cors-> cors.configurationSource(appConfig.corsConfigurationSource()))
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**").disable())
                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()))
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers("/auth/**", "/health/**", "/h2-console/**").permitAll()
+                        .requestMatchers("/auth/**", "/health/**", "/h2-console/**","/notes/public/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

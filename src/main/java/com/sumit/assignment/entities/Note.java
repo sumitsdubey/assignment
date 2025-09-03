@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 @Builder
 public class Note {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
     private String title;
     @Column(columnDefinition = "TEXT")
     private String content;

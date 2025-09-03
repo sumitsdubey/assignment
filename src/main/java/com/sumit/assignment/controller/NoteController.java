@@ -31,7 +31,7 @@ public class NoteController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateNote(@RequestBody NoteRequestDto note, @PathVariable Long id) {
+    public ResponseEntity<?> updateNote(@RequestBody NoteRequestDto note, @PathVariable String id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         Note updated = notesServices.updateNote(note, id, authentication);
@@ -49,11 +49,20 @@ public class NoteController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteNote(@PathVariable Long id) {
+    public ResponseEntity<?> deleteNote(@PathVariable String id) {
         Note existingNote = notesServices.getNoteById(id);
         if(existingNote != null){
             notesServices.deleteNote(id);
             return new ResponseEntity<>("Note deleted successfully", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Note not found", HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/public/{id}")
+    public ResponseEntity<?> getPublicNoteById(@PathVariable String id) {
+        Note existingNote = notesServices.getNoteById(id);
+        if(existingNote != null){
+            return new ResponseEntity<>(existingNote, HttpStatus.OK);
         }
         return new ResponseEntity<>("Note not found", HttpStatus.NOT_FOUND);
     }
